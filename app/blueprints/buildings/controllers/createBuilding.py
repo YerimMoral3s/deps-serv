@@ -11,8 +11,6 @@ def create_building(name):
     Expects JSON: { "name": "Building A", "total_units": 10 }
     """
     try:
-        print(name)
-
         if not name:
             return error_response(
                 message="Missing required fields",
