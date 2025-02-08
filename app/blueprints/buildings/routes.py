@@ -1,11 +1,14 @@
 from flask import Blueprint, request
 from app.extensions.require_api_key import require_api_key
-from app.extensions.require_access_token import require_access_token
-from app.extensions.responses import error_response
+from app.blueprints.buildings.controllers.createBuilding import create_building
 
 buildings_bp = Blueprint("buildings", __name__)
 
-@buildings_bp.route('/test', methods=['GET'])
+@buildings_bp.route('/create-building', methods=['POST'])
 @require_api_key
-def login():
-    print("hi")
+def create():
+  data = request.json
+  name = data.get('name')
+  return create_building( name=name )
+
+    
