@@ -1,0 +1,47 @@
+# 🔹 Python virtual environment
+venv/
+.venv/
+Pipfile
+Pipfile.lock
+
+# 🔹 Python bytecode/cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# 🔹 Flask-specific
+instance/
+*.db
+*.sqlite
+migrations/
+config.py
+
+# 🔹 Environment variables
+.env
+*.env
+*.venv
+
+# 🔹 Log files
+*.log
+nohup.out
+debug.log
+
+# 🔹 Coverage reports
+.coverage
+coverage/
+htmlcov/
+*.cover
+*.pycover
+*.pth
+.tox/
+.pytest_cache/
+nosetests.xml
+coverage.xml
+
+# 🔹 System/Editor files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
