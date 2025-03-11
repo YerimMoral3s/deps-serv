@@ -16,4 +16,4 @@ class DepartmentType(db.Model):
     departments = relationship('Department', back_populates='department_type')
 
     def __repr__(self):
-        return f"<DepartmentType(id={self.id}, type_name={self.type_name}, bedrooms={self.bedrooms}, bathrooms={self.bathrooms})>"
+        return f"<DepartmentType(id={self.id}, bedrooms={self.bedrooms}, bathrooms={self.bathrooms}, base_rent_price={self.base_rent_price})>"

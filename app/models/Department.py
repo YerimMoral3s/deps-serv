@@ -14,15 +14,3 @@ class Department(db.Model):
 
     building = relationship('Building', back_populates='departments')
     department_type = relationship('DepartmentType', back_populates='departments')
-    
-    def to_dict(self):
-        return {
-            'id': self.id,
-            'building_id': self.building_id,
-            'department_type_id': self.department_type_id,
-            'status': self.status,
-            'created_at': self.created_at,
-            'updated_at': self.updated_at
-        }
-    def __repr__(self):
-        return f"<Department(id={self.id}, building_id={self.building_id}, status={self.status})>"
