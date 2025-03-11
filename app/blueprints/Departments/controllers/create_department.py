@@ -25,14 +25,14 @@ def create_department(building_id, department_type_id):
         # Serialize the department manually
         department_data = {
             "id": new_department.id,
-            # "building_id": new_department.building_id,
+            "building_id": new_department.building_id,
             # "department_type_id": new_department.department_type_id,
             # "status": new_department.status,
             # "created_at": new_department.created_at.isoformat() if new_department.created_at else None,
             # "updated_at": new_department.updated_at.isoformat() if new_department.updated_at else None
         }
 
-        return success_response(data=department_data, message="Department created successfully", status_code=201)
+        return success_response(data=department_data, message="Department created successfully", status_code=200)
 
     except Exception as e:
         db.session.rollback()
