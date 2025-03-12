@@ -25,9 +25,6 @@ def create_app():
 
     from app.blueprints.buildings.routes import buildings_bp
     app.register_blueprint(buildings_bp, url_prefix='/buildings')
-
-    from app.blueprints.department_types.routes import department_types_bp
-    app.register_blueprint(department_types_bp, url_prefix='/departmentsTypes')
     
     from app.blueprints.Departments.routes import department_bp
     app.register_blueprint(department_bp, url_prefix='/departments')

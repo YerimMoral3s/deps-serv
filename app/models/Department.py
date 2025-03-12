@@ -7,10 +7,12 @@ class Department(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     building_id = db.Column(db.Integer, db.ForeignKey('buildings.id', ondelete='CASCADE'), nullable=False)
-    department_type_id = db.Column(db.Integer, db.ForeignKey('department_types.id', ondelete='CASCADE'), nullable=False)
     status = db.Column(db.Enum('disponible', 'ocupado', 'mantenimiento', name='status_enum'), default='disponible')
+    bedrooms = db.Column(db.Integer, nullable=False)
+    bathrooms = db.Column(db.Integer, nullable=False)
+    base_rent_price = db.Column(db.Numeric(10,2), nullable=True)
+    description = db.Column(db.Text, nullable=True)
     created_at = db.Column(db.TIMESTAMP, server_default=db.func.current_timestamp())
     updated_at = db.Column(db.TIMESTAMP, server_default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())
 
     building = relationship('Building', back_populates='departments')
-    department_type = relationship('DepartmentType', back_populates='departments')

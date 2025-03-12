@@ -14,8 +14,12 @@ department_bp = Blueprint('department', __name__)
 def create_departments():
     data = request.get_json()
     building_id = data.get('building_id')
-    department_type_id = data.get('department_type_id')
-    return create_department(building_id, department_type_id)
+    bedrooms = data.get('bedrooms')
+    bathrooms = data.get('bathrooms')
+    base_rent_price = data.get('base_rent_price')
+    description = data.get('description')
+
+    return create_department(building_id, bedrooms, bathrooms, base_rent_price, description)
 
 @department_bp.route('/<int:building_id>', methods=['GET'])
 @require_api_key
@@ -26,7 +30,7 @@ def get__departments(building_id):
     return get_departments(building_id, page, per_page)
 
 
-@department_bp.route('/department/<int:department_id>', methods=['GET'])
+@department_bp.route('/id/<int:department_id>', methods=['GET'])
 @require_api_key
 @require_access_token
 def get_department(department_id):
