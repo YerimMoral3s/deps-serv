@@ -28,5 +28,12 @@ def create_app():
     
     from app.blueprints.Departments.routes import department_bp
     app.register_blueprint(department_bp, url_prefix='/departments')
+
+    from app.blueprints.Tenants.routes import tenants_bp
+    app.register_blueprint(tenants_bp, url_prefix='/tenants')
+    
+
+    from app.blueprints.Leases.routes import leases_bp
+    app.register_blueprint(leases_bp, url_prefix='/leases')
     
     return app

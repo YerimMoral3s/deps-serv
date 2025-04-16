@@ -4,10 +4,14 @@ from app.models.Department import Department
 from app.extensions.responses import success_response, error_response
 
 
-def get_departments(building_id, page, per_page):
+def get_departments(building_id, page, per_page, status=None):
     try:
-        # Query departments with related department_type
-        pagination = Department.query.filter_by(building_id=building_id).paginate(page=page, per_page=per_page, error_out=False)
+        # Query departments with related department_type, optionally filtering by status
+        query = Department.query.filter_by(building_id=building_id)
+        if status:
+            query = query.filter_by(status=status)
+
+        pagination = query.paginate(page=page, per_page=per_page, error_out=False)
 
         # Convert SQLAlchemy objects to dictionaries
         departments = [
@@ -21,7 +25,6 @@ def get_departments(building_id, page, per_page):
                 "description": dept.description,
                 "created_at": dept.created_at.isoformat() if dept.created_at else None,
                 "updated_at": dept.updated_at.isoformat() if dept.updated_at else None,
-              
             }
             for dept in pagination.items
         ]

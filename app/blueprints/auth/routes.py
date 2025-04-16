@@ -5,7 +5,6 @@ from .controllers.login import login_user
 from .controllers.sign_in import sign_in
 from .controllers.close_session import close_session
 from .controllers.refresh_credentials import refresh_credentials
-from .controllers.refresh_credentials import refresh_credentials
 from .controllers.change_password import change_password
 from app.extensions.responses import error_response
 

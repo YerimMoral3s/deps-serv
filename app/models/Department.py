@@ -15,4 +15,6 @@ class Department(db.Model):
     created_at = db.Column(db.TIMESTAMP, server_default=db.func.current_timestamp())
     updated_at = db.Column(db.TIMESTAMP, server_default=db.func.current_timestamp(), onupdate=db.func.current_timestamp())
 
+    leases = relationship('Lease', back_populates='department')
+
     building = relationship('Building', back_populates='departments')
