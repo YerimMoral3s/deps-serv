@@ -11,7 +11,10 @@ tenants_bp= Blueprint("Tenants", __name__)
 @require_api_key
 @require_access_token
 def get_all_tenants_():
-    return get_all_tenants()
+    page = request.args.get('page', default=1, type=int)
+    per_page = request.args.get('per_page', default=10, type=int)
+    return get_all_tenants(page, per_page)
+
 
 
 @tenants_bp.route('', methods=['POST'])

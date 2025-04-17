@@ -15,6 +15,10 @@ class Tenant(db.Model):
     updated_at = db.Column(db.DateTime, server_default=db.func.now(), onupdate=db.func.now())
 
     leases = relationship('Lease', back_populates='tenant')
+    @property
+    
+    def active_lease(self):
+        return next((lease for lease in self.leases if lease.status == "activo"), None)
 
     def __repr__(self):
         return f"<Tenant(id={self.id}, name={self.first_name} {self.last_name}, email={self.email})>"
