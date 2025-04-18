@@ -4,14 +4,20 @@ from app.models.Tenant import Tenant
 from app.models.Lease import Lease
 from app.models.Department import Department
 from app.extensions.responses import success_response, error_response
+from sqlalchemy import or_
 
-def get_all_tenants(page, per_page):
+def get_all_tenants(page, per_page, search):
     try:
-        query = Tenant.query.options(
-            joinedload(Tenant.leases)
-            .joinedload(Lease.department)
-            .joinedload(Department.building)
-        )
+        query = Tenant.query.options(joinedload(Tenant.leases).joinedload(Lease.department).joinedload(Department.building)
+)
+        if search:
+            query = query.filter(
+                or_(
+                    Tenant.first_name.ilike(f"%{search}%"),
+                    Tenant.last_name.ilike(f"%{search}%"),
+                    Tenant.phone.ilike(f"%{search}%")
+                )
+            )
 
         pagination = query.paginate(page=page, per_page=per_page, error_out=False)
 
@@ -44,4 +50,5 @@ def get_all_tenants(page, per_page):
         )
 
     except Exception as e:
+        print(str(e))
         return error_response(message="Error al obtener inquilinos", errors=[str(e)], status_code=500)

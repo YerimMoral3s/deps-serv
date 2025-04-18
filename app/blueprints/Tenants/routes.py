@@ -13,7 +13,9 @@ tenants_bp= Blueprint("Tenants", __name__)
 def get_all_tenants_():
     page = request.args.get('page', default=1, type=int)
     per_page = request.args.get('per_page', default=10, type=int)
-    return get_all_tenants(page, per_page)
+    search = request.args.get("search", "").strip()
+
+    return get_all_tenants(page, per_page, search)
 
 
 
