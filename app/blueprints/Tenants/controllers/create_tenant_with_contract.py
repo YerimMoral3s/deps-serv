@@ -83,9 +83,15 @@ def create_tenant_with_contract(first_name, last_name, phone, email, department_
             department.tenant_id = tenant.id
             department.status = "ocupado"
 
+            building_id = department.building_id if department else None
+
         return success_response(
             message="Inquilino registrado correctamente",
-            data={"tenant_id": tenant.id},
+            data={
+                "tenant_id": tenant.id, 
+                "building_id": building_id,
+                "department_id": department.id
+            },
             status_code=201
         )
     except SQLAlchemyError as e:
