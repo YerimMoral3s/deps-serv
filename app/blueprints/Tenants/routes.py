@@ -4,6 +4,7 @@ from app.extensions.require_access_token import require_access_token
 from app.blueprints.Tenants.controllers.getAllTenants import get_all_tenants
 from app.blueprints.Tenants.controllers.create_tenant_controller import create_tenant_controller
 from app.blueprints.Tenants.controllers.create_tenant_with_contract import create_tenant_with_contract
+from app.blueprints.Tenants.controllers.get_tenant_by_id import get_tenant_by_id
 
 tenants_bp= Blueprint("Tenants", __name__)
 
@@ -53,3 +54,11 @@ def create_tenant_contract():
     
 
     return create_tenant_with_contract(first_name, last_name, phone, email, department_id, lease_type, start_date, end_date, payment_day, monthly_rent, upfront_payment)
+
+@tenants_bp.route('/<int:tenant_id>', methods=['GET'])
+@require_api_key
+@require_access_token
+def get_tenant_(tenant_id):
+    print(tenant_id)
+    return get_tenant_by_id(tenant_id)
+    
