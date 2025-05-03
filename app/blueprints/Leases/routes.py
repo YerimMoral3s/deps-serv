@@ -1,4 +1,5 @@
 from flask import Blueprint, request
+from app.blueprints.Leases.controllers.get_tenant_Lease_by_id import get_tenant_Lease_by_id
 from app.blueprints.Leases.controllers.create_lease import create_lease_controller
 
 from app.extensions.require_api_key import require_api_key
@@ -29,4 +30,11 @@ def create_lease():
         payment_day,
         monthly_rent
     )
+
+@leases_bp.route('/<int:tenant_id>', methods=['GET'])
+@require_api_key
+@require_access_token
+def getLease(tenant_id):
+    return get_tenant_Lease_by_id(tenant_id)
+
 
