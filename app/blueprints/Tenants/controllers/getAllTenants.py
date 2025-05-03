@@ -50,5 +50,4 @@ def get_all_tenants(page, per_page, search):
         )
 
     except Exception as e:
-        print(str(e))
         return error_response(message="Error al obtener inquilinos", errors=[str(e)], status_code=500)
