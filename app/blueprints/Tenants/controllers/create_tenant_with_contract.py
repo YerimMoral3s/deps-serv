@@ -7,6 +7,7 @@ from sqlalchemy.exc import SQLAlchemyError
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from app.models.Payment import Payment
+from calendar import monthrange
 
 def create_tenant_with_contract(first_name, last_name, phone, email, department_id, lease_type, start_date, end_date, payment_day, monthly_rent, upfront_payment):
     try:
@@ -69,9 +70,12 @@ def create_tenant_with_contract(first_name, last_name, phone, email, department_
             current_due_date = start
 
             while current_due_date < end:
+                last_day = monthrange(current_due_date.year, current_due_date.month)[1]
+                safe_day = min(int(payment_day), last_day)
+                due_date = current_due_date.replace(day=safe_day)
                 db.session.add(Payment(
                     lease_id=lease.id,
-                    due_date=current_due_date.date(),
+                    due_date=due_date.date(),
                     amount=monthly_rent,
                     status="pendiente",
                     payment_date=payment_day,
@@ -96,4 +100,5 @@ def create_tenant_with_contract(first_name, last_name, phone, email, department_
         )
     except SQLAlchemyError as e:
         db.session.rollback()
+        print(str(e))
         return error_response("Error al crear el inquilino y contrato", errors=[str(e)], status_code=500)

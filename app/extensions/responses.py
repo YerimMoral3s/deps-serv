@@ -7,7 +7,7 @@ def success_response(data=None, message="Success", status_code=200):
     response = {
         "success": True,
         "message": message,
-        "data": data or {}
+        "data": data
     }
     return jsonify(response), status_code
 
@@ -18,7 +18,7 @@ def error_response(message="An error occurred", status_code=400, errors=None, er
     response = {
         "success": False,
         "message": message,
-        "errors": errors or [],
+        "errors": errors,
         "error_code": error_code
     }
     return jsonify(response), status_code

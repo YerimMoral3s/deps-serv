@@ -6,13 +6,13 @@ from app.models.Department import Department
 def get_department_by_tenant_id(tenant_id):
   try:
     lease = Lease.query.filter_by(tenant_id=tenant_id).first()
-    print(lease)
+
     if not lease:
         return error_response(message="Failed to fetch departments")
     
     department = Department.query.get(lease.department_id)
-    print(department)
-    if not lease:
+
+    if not department:
       return error_response(message="Failed to fetch departments")
     
     department_data = {
