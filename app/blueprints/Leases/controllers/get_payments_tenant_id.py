@@ -16,6 +16,7 @@ def get_payments_tenant_id(tenant_id):
 
     payments = (
         Payment.query.filter(Payment.lease_id.in_(lease_ids))
+        .order_by(Payment.due_date.asc())
         .all()
     )
 
