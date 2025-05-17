@@ -73,11 +73,14 @@ def create_tenant_with_contract(first_name, last_name, phone, email, department_
                 last_day = monthrange(current_due_date.year, current_due_date.month)[1]
                 safe_day = min(int(payment_day), last_day)
                 due_date = current_due_date.replace(day=safe_day)
+                
+                status = "vencido" if due_date.date() <= datetime.today().date() else "pendiente"
+
                 db.session.add(Payment(
                     lease_id=lease.id,
                     due_date=due_date.date(),
                     amount=monthly_rent,
-                    status="pendiente",
+                    status=status,
                     payment_date=payment_day,
                     type="rent"
                 ))
