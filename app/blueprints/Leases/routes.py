@@ -2,6 +2,7 @@ from flask import Blueprint, request
 from app.blueprints.Leases.controllers.get_tenant_Lease_by_id import get_tenant_Lease_by_id
 from app.blueprints.Leases.controllers.create_lease import create_lease_controller
 from app.blueprints.Leases.controllers.get_payments_tenant_id import get_payments_tenant_id
+from app.blueprints.Leases.controllers.updatePaymentStatus import updatePaymentStatus
 
 from app.extensions.require_api_key import require_api_key
 from app.extensions.require_access_token import require_access_token
@@ -44,5 +45,15 @@ def getLease(tenant_id):
 @require_access_token
 def getPayments(tenant_id):
     return get_payments_tenant_id(tenant_id)
+
+
+@leases_bp.route('payments/<int:payment_id>/status', methods=['POST'])
+@require_api_key
+@require_access_token
+def update_payment(payment_id):
+    body = request.get_json()
+    new_status = body.get("status")
+    print(new_status)
+    return updatePaymentStatus(payment_id, new_status)
 
 
