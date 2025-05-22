@@ -5,6 +5,7 @@ from app.blueprints.Tenants.controllers.getAllTenants import get_all_tenants
 from app.blueprints.Tenants.controllers.create_tenant_controller import create_tenant_controller
 from app.blueprints.Tenants.controllers.create_tenant_with_contract import create_tenant_with_contract
 from app.blueprints.Tenants.controllers.get_tenant_by_id import get_tenant_by_id
+from app.blueprints.Tenants.controllers.update_tenant import update_tenant
 
 tenants_bp= Blueprint("Tenants", __name__)
 
@@ -61,4 +62,17 @@ def create_tenant_contract():
 def get_tenant_(tenant_id):
     print(tenant_id)
     return get_tenant_by_id(tenant_id)
+    
+
+@tenants_bp.route('/<int:tenant_id>', methods=['PUT'])
+@require_api_key
+@require_access_token
+def updateTenant(tenant_id):
+    data = request.get_json()
+    # tenant info
+    first_name = data.get('first_name')
+    last_name = data.get('last_name')
+    email = data.get('email', None)
+
+    return update_tenant(tenant_id, first_name, last_name, email)
     

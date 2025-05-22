@@ -21,6 +21,7 @@ def create_tenant_with_contract(first_name, last_name, phone, email, department_
         
             # Check if tenant exist
             existing = Tenant.query.filter_by(phone=phone).first()
+            
             if existing:
                 if existing.status == 'inactivo':
                     existing.status = 'activo'
