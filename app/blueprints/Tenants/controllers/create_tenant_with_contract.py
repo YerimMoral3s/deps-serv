@@ -36,9 +36,9 @@ def create_tenant_with_contract(first_name, last_name, phone, email, department_
                 phone=phone,
                 email=email,
             )
-                db.session.add(tenant)
-                db.session.flush()
-
+            
+            db.session.add(tenant)
+            db.session.flush()
             # create lease
             lease = Lease(
                 tenant_id=tenant.id,
