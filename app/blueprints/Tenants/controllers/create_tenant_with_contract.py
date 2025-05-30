@@ -23,19 +23,19 @@ def create_tenant_with_contract(first_name, last_name, phone, email, department_
             existing = Tenant.query.filter_by(phone=phone).first()
             
             if existing:
-                if existing.status == 'inactivo':
-                    existing.status = 'activo'
-                    db.session.flush()
-                    tenant = existing
-                else:
-                    return error_response("Ya existe un inquilino con ese teléfono", status_code=409)
-            else:
-                tenant = Tenant(
-                    first_name=first_name,
-                    last_name=last_name,
-                    phone=phone,
-                    email=email,
-                )
+                # if existing.status == 'inactivo':
+                #     existing.status = 'activo'
+                #     db.session.flush()
+                #     tenant = existing
+                # else:
+                return error_response("Ya existe un inquilino con ese teléfono", status_code=409)
+
+            tenant = Tenant(
+                first_name=first_name,
+                last_name=last_name,
+                phone=phone,
+                email=email,
+            )
                 db.session.add(tenant)
                 db.session.flush()
 
